@@ -2880,13 +2880,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1790536b48f0db144ae514630e711c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVelocity: {x: 6, y: 0, z: 0}
-  initialPosition: {x: 3.321, y: 1.488, z: 0.517}
+  initialVelocity: {x: 0, y: 0, z: 10}
+  initialPosition: {x: 0, y: 0.021, z: -0.6824}
   maxTime: 2
-  showWeaponTrajectory: 0
+  showWeaponTrajectory: 1
   gravityAcceleration: 9.81
   physicsTimeStep: 0
   currentWeaponData: {fileID: 11400000, guid: 5d856537bbc0eab479085d5a8599527c, type: 2}
+  muzzle: {fileID: 1474296202}
 --- !u!1 &999530057
 GameObject:
   m_ObjectHideFlags: 3
@@ -3085,7 +3086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 5d856537bbc0eab479085d5a8599527c, type: 2}
-  weaponBullet: {fileID: 0}
+  weaponBullet: {fileID: 2149051666938692487, guid: a42d99f66979cb34d898bab764bd3f4f, type: 3}
   muzzleExit: {fileID: 1474296202}
 --- !u!4 &1150411943 stripped
 Transform:
