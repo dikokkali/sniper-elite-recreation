@@ -3,20 +3,17 @@ using UnityEngine;
 
 public abstract class Item : ScriptableObject
 {
-    [SerializeField][ReadOnly] private string _itemId;
-    [SerializeField] private string _itemName;
-    [SerializeField] private string _itemDescription;
-
-    public string ItemId { get; protected set; }
-    public string ItemName { get; set; }
-    public string ItemDescription { get; set; }
+    [ReadOnly]
+    public string itemId;
+    public string itemName;
+    public string itemDescription;
 
     public GameObject itemPrefab;
     public Sprite itemIcon;
 
     protected void Awake()
     {
-        _itemId = GetItemId();
+        itemId = GetItemId();
     }
 
     public string GetItemId()

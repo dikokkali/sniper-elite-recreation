@@ -11,31 +11,59 @@ public class PhysicsManager : MonoBehaviour
     public Vector3 initialPosition;
     public float maxTime;
 
+    public static float projectileRaycastDistance;
+
     public bool showWeaponTrajectory;
     public float gravityAcceleration;
     public float physicsTimeStep;
 
-    public List<GameObject> renderedObjects;
+    public static ProjectileController watchedProjectile;
+
+    // TEST
+    public Weapon currentWeaponData;
+    public Transform muzzle;
+
+    private float _timeStepSquared;
 
     private void Awake()
     {
         trajectoryCalculator = new ProjectileTrajectory();
 
         InitializePhysicsContext();
+
+        _timeStepSquared = Mathf.Pow(physicsTimeStep, 2); // So it isn't calculated every frame
+        initialPosition = muzzle.position;
     }
 
     private void FixedUpdate()
-    { 
+    {         
         if (showWeaponTrajectory)
         {
             DrawTrajectory();
         }
+
+        if (watchedProjectile != null)
+        {
+            Time.timeScale = 0.05f;
+            SimulateBulletMotion();
+        }
     }
+
+
 
     private void InitializePhysicsContext()
     {
         gravityAcceleration = Physics.gravity.magnitude;
         physicsTimeStep = Time.fixedDeltaTime;
+    }
+
+    private void SimulateBulletMotion()
+    {
+        Vector3 bulletVelocity = new Vector3(0f, 0f, currentWeaponData.muzzleVelocity); // Z is forward by convention
+        Vector3 gravityVector = new Vector3(0f, gravityAcceleration, 0f);
+
+        watchedProjectile.transform.position +=
+            bulletVelocity * Time.fixedDeltaTime - 0.5f * gravityVector * _timeStepSquared;
     }
 
     public void DrawTrajectory()
@@ -46,5 +74,15 @@ public class PhysicsManager : MonoBehaviour
         {
             Debug.DrawLine(pathPoints[i - 1], pathPoints[i], Color.green);
         }
+    }
+
+    public static void RegisterProjectile(ProjectileController projectile)
+    {
+        watchedProjectile = projectile;
+    }
+
+    public static void UnregisterProjectile()
+    {
+        watchedProjectile = null;
     }
 }
