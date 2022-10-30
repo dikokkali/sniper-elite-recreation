@@ -2880,7 +2880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialVelocity: {x: 6, y: 0, z: 0}
-  initialPosition: {x: 4, y: 3, z: 7}
+  initialPosition: {x: 3.321, y: 1.488, z: 0.517}
   maxTime: 2
   showWeaponTrajectory: 0
   gravityAcceleration: 9.81
