@@ -3,8 +3,20 @@
 -------------------------------------------------------------
 
 -----------
+ GENERAL
+-----------
+1. Extract utils to package
+
+-----------
  REFACTORS
 -----------
 
 1. Make turning the character smoother with LERP
 2. Add turn animations
+
+-------------
+ NICE TO HAVE 
+-------------
+
+1. Bullet penetration
+2. Calculate damage based on energy

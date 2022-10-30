@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7139658ac6d5f454dbcfdc7aee904ab4, type: 3}
+  m_Name: weapon_vz54
+  m_EditorClassIdentifier: 
+  _itemId: d4ab8ee3-db01-413f-9727-c6cce6b44759
+  _itemName: VZ-54
+  _itemDescription: A basic bolt-action sniper rifle.
+  itemPrefab: {fileID: 3701216685195218289, guid: a89be4e7041e60848847f206963aef79, type: 3}
+  itemIcon: {fileID: 0}
+  _baseDamage: 100
+  _muzzleVelocity: 500
+  _fireRate: 0
+  _clipSize: 0
+  firingSound: {fileID: 0}
+  reloadingSound: {fileID: 0}
