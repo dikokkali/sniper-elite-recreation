@@ -2880,9 +2880,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1790536b48f0db144ae514630e711c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVelocity: {x: 0, y: 0, z: 10}
+  initialVelocity: {x: 0, y: 0, z: 3}
   initialPosition: {x: 0, y: 0.021, z: -0.6824}
-  maxTime: 2
+  maxTime: 10
   showWeaponTrajectory: 1
   gravityAcceleration: 9.81
   physicsTimeStep: 0
