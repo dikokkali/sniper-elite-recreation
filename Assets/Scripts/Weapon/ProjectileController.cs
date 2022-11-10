@@ -10,17 +10,19 @@ public class ProjectileController : MonoBehaviour
 
     private void OnDestroy()
     {
-        PhysicsManager.UnregisterProjectile();
-    }
+        PhysicsManager.UnregisterProjectile();        
+    }   
 
-    private void FixedUpdate()
+    private void Update()
     {
         Ray bulletRay = new Ray(transform.position, transform.forward);
         RaycastHit bulletHit;
 
+        Debug.DrawLine(transform.position, transform.position + transform.forward * PhysicsManager.projectileRaycastDistance);
+
         if (Physics.Raycast(bulletRay, out bulletHit, PhysicsManager.projectileRaycastDistance, ~LayerMask.NameToLayer("BulletDamageable")))
         {
-            Debug.Log("HIT " + bulletHit.collider.name);
+            //Debug.Break();
         }
     }
 }

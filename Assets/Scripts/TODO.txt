@@ -6,6 +6,7 @@
  GENERAL
 -----------
 1. Extract utils to package
+2. LERP bullet position for smoothness
 
 -----------
  REFACTORS
@@ -14,6 +15,8 @@
 1. Make turning the character smoother with LERP
 2. Add turn animations
 3. Clean up physics test variables/functions
+4. Add ability for ballistics engine to watch multiple projectiles (now can only simulate one)
+5. Make an interface for projectiles (i.e. IBallisticBehavior), grab them on startup/construction and hide the physics away by inheriting
 
 -------------
  NICE TO HAVE 
@@ -27,4 +30,5 @@
 -------------
 
 - Problem with bullet not following path: predictive formula was using currentTime, actual ballistics 
-calculation was using timeStep. Need to find the correct formula (review them)
+calculation was using timeStep. Need to find the correct formula (review them) (SOLVED)
+- Ballistics trajectory no longer an arc

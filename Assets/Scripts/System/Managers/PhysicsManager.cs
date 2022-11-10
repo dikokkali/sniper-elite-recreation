@@ -11,7 +11,7 @@ public class PhysicsManager : MonoBehaviour
     public Vector3 initialPosition;
     public float maxTime;
 
-    public static float projectileRaycastDistance;
+    public static float projectileRaycastDistance = 0.2f;
 
     public bool showWeaponTrajectory;
     public float gravityAcceleration;
@@ -24,6 +24,7 @@ public class PhysicsManager : MonoBehaviour
     public Transform muzzle;
 
     private float _timeStepSquared;
+    private float _timeAccumulator;
 
     private void Awake()
     {
@@ -44,7 +45,6 @@ public class PhysicsManager : MonoBehaviour
 
         if (watchedProjectile != null)
         {
-            Time.timeScale = 0.05f;
             SimulateBulletMotion();
         }
     }
