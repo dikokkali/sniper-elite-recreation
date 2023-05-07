@@ -4,26 +4,46 @@ public class ProjectileTrajectory
 {
     public Vector3[] CalculateBallisticPathPoints(Vector3 initialPos, Vector3 initialVel, float gravityAcc, float timeStep, float maxTime)
     {
-        float currentTime = 0f;
         int maxIterations = Mathf.CeilToInt(maxTime / timeStep);
 
         Vector3[] points = new Vector3[Mathf.CeilToInt(maxIterations)];
 
         Vector3 gravity = new Vector3(0f, gravityAcc, 0f);
+        
+        Vector3 currentVel = initialVel;    
+        points[0] = initialPos;
 
-        Vector3 currentPos = initialPos;
-
-       for (int i = 0; i < maxIterations; i++)
+       for (int i = 1; i < maxIterations; i++)
         {
-            currentPos += initialVel * currentTime - 0.5f * gravity * Mathf.Pow(currentTime, 2);
-
-            currentTime += timeStep;
-
-            points[i] = currentPos;
+            currentVel = currentVel - gravity * timeStep;
+            points[i] = points[i-1]  + currentVel * timeStep - 0.5f * gravity * Mathf.Pow(timeStep, 2);
         }
 
         return points;
     }
+
+    // public Vector3[] CalculateBallisticPathPoints(Vector3 initialPos, Vector3 initialVel, float gravityAcc, float timeStep, float maxTime)
+    // {
+    //     float currentTime = 0f;
+    //     int maxIterations = Mathf.CeilToInt(maxTime / timeStep);
+
+    //     Vector3[] points = new Vector3[Mathf.CeilToInt(maxIterations)];
+
+    //     Vector3 gravity = new Vector3(0f, gravityAcc, 0f);
+
+    //     Vector3 currentPos = initialPos;
+
+    //    for (int i = 0; i < maxIterations; i++)
+    //     {
+    //         currentPos += initialVel * currentTime - 0.5f * gravity * Mathf.Pow(currentTime, 2);
+
+    //         currentTime += timeStep;
+
+    //         points[i] = currentPos;
+    //     }
+
+    //     return points;
+    // }
 
     
     public bool ProjectileHitCast(Vector3[] path, out RaycastHit hitObject, int ignoreLayers)

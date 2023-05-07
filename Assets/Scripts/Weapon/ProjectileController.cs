@@ -2,6 +2,8 @@
 
 public class ProjectileController : MonoBehaviour
 {
+    public Vector3 bulletVelocity = Vector3.zero;   
+
     private void Awake()
     {
         PhysicsManager.RegisterProjectile(this);

@@ -21,5 +21,6 @@ public class WeaponController : MonoBehaviour
     public void OnShootCommand(InputAction.CallbackContext ctx)
     {
         GameObject bulletInstance = GameObject.Instantiate(weaponBullet, muzzleExit.position, Quaternion.identity);
+        bulletInstance.GetComponent<ProjectileController>().bulletVelocity = new Vector3(0f, 0f, weaponData.muzzleVelocity);
     }
 }
