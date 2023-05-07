@@ -123,7 +123,6 @@ public class ThirdPersonController : MonoBehaviour
 
         if (Physics.Raycast(groundedRay, out hitInfo, groundedDistance))
         {
-            Debug.Log(hitInfo.collider.name);
             isGrounded = true;
             return true;
         }
