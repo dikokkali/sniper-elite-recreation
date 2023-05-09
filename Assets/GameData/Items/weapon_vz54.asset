@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7139658ac6d5f454dbcfdc7aee904ab4, type: 3}
   m_Name: weapon_vz54
   m_EditorClassIdentifier: 
-  itemId: cbd015c4-a17f-4485-9aa0-73171f2c4205
+  itemId: 5f1e377a-c8da-4e7e-8cf3-0f66808fc86e
   itemName: 
   itemDescription: 
   itemPrefab: {fileID: 3701216685195218289, guid: a89be4e7041e60848847f206963aef79, type: 3}
   itemIcon: {fileID: 0}
   baseDamage: 0
-  muzzleVelocity: 41.9
+  muzzleVelocity: 100
   fireRate: 0
   clipSize: 0
   firingSound: {fileID: 0}

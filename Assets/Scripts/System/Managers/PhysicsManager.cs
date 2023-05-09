@@ -1,24 +1,28 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PhysicsManager : MonoBehaviour
 {
     private ProjectileTrajectory trajectoryCalculator;
-    public float maxTime;
 
+    // Physical constant settings
+    public float gravityAcceleration;
+    public float airDragCoefficient;
+
+    // Simulation settings
+    public float physicsTimeStep;
+    public float maxTime;
+    public bool showWeaponTrajectory;
+    
     public static float projectileRaycastDistance = 0.2f;
 
-    public bool showWeaponTrajectory;
-    public float gravityAcceleration;
-    public float physicsTimeStep;
-
-    public static ProjectileController watchedProjectile;
+    public static List<BallisticsProjectile> watchedProjectiles = new List<BallisticsProjectile>();
 
     // TEST
     public Weapon currentWeaponData;
     public Transform muzzle;
 
     private float _timeStepSquared;
-    private float _timeAccumulator;
 
     private void Awake()
     {
@@ -36,26 +40,28 @@ public class PhysicsManager : MonoBehaviour
             DrawTrajectory();
         }
 
-        if (watchedProjectile != null)
+        if (watchedProjectiles.Count > 0)
         {
-            SimulateBulletMotion();
+            foreach (var projectile in watchedProjectiles)
+            {
+                SimulateBulletMotion(projectile);
+            }
         }
     }
 
-
-
     private void InitializePhysicsContext()
-    {
+    {        
+        // Temporary values
         gravityAcceleration = Physics.gravity.magnitude;
         physicsTimeStep = Time.fixedDeltaTime;
     }
 
-    private void SimulateBulletMotion()
+    private void SimulateBulletMotion(BallisticsProjectile projectile)
     {
         Vector3 gravityVector = new Vector3(0f, gravityAcceleration, 0f);
 
-        watchedProjectile.bulletVelocity -= gravityVector * physicsTimeStep;
-        watchedProjectile.transform.position += watchedProjectile.bulletVelocity * Time.fixedDeltaTime - 0.5f * gravityVector * _timeStepSquared;
+        projectile.velocity -= gravityVector * physicsTimeStep;
+        projectile.transform.position += projectile.velocity * Time.fixedDeltaTime - 0.5f * gravityVector * _timeStepSquared;
     }
 
     public void DrawTrajectory()
@@ -68,13 +74,13 @@ public class PhysicsManager : MonoBehaviour
         }
     }
 
-    public static void RegisterProjectile(ProjectileController projectile)
+    public static void RegisterProjectile(BallisticsProjectile projectile)
     {
-        watchedProjectile = projectile;
+        watchedProjectiles.Add(projectile);
     }
 
-    public static void UnregisterProjectile()
+    public static void UnregisterProjectile(BallisticsProjectile projectile)
     {
-        watchedProjectile = null;
+        watchedProjectiles.Remove(projectile);
     }
 }

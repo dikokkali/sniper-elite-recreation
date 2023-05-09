@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
+public class BallisticsProjectile : MonoBehaviour
 {
-    public Vector3 bulletVelocity = Vector3.zero;   
+    public Vector3 velocity;
+    public float kineticEnergy;  
+    public float mass; 
+
 
     private void Awake()
     {
@@ -12,7 +15,7 @@ public class ProjectileController : MonoBehaviour
 
     private void OnDestroy()
     {
-        PhysicsManager.UnregisterProjectile();        
+        PhysicsManager.UnregisterProjectile(this);        
     }   
 
     private void Update()
@@ -27,4 +30,12 @@ public class ProjectileController : MonoBehaviour
             //Debug.Break();
         }
     }
+
+    public float getKineticEnergy() {
+        return 0.5f * mass * velocity.magnitude * velocity.magnitude;
+    }
+
+    public Vector3 getLinearMomentum() {
+        return mass * velocity;
+    } 
 }
