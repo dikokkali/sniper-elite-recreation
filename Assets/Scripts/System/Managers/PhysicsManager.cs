@@ -8,6 +8,7 @@ public class PhysicsManager : MonoBehaviour
     // Physical constant settings
     public float gravityAcceleration;
     public float airDragCoefficient;
+    public Vector3 windAcceleration;
 
     // Simulation settings
     public float physicsTimeStep;
@@ -23,6 +24,7 @@ public class PhysicsManager : MonoBehaviour
     public Transform muzzle;
 
     private float _timeStepSquared;
+    private Vector3 _gravityVector;
 
     private void Awake()
     {
@@ -54,23 +56,32 @@ public class PhysicsManager : MonoBehaviour
         // Temporary values
         gravityAcceleration = Physics.gravity.magnitude;
         physicsTimeStep = Time.fixedDeltaTime;
+
+        _gravityVector = new Vector3(0f, -gravityAcceleration, 0f);
     }
 
     private void SimulateBulletMotion(BallisticsProjectile projectile)
     {
-        Vector3 gravityVector = new Vector3(0f, gravityAcceleration, 0f);
+        Vector3 totalAcceleration = _gravityVector + windAcceleration;
 
-        projectile.velocity -= gravityVector * physicsTimeStep;
-        projectile.transform.position += projectile.velocity * Time.fixedDeltaTime - 0.5f * gravityVector * _timeStepSquared;
+        projectile.velocity = projectile.velocity + totalAcceleration * physicsTimeStep;
+        projectile.transform.position = projectile.transform.position +  projectile.velocity * Time.fixedDeltaTime + 0.5f * totalAcceleration * _timeStepSquared;
     }
 
     public void DrawTrajectory()
     {
-        Vector3[] pathPoints = trajectoryCalculator.CalculateBallisticPathPoints(muzzle.position, new Vector3(0f, 0f, currentWeaponData.muzzleVelocity), gravityAcceleration, physicsTimeStep, maxTime);
+        Vector3 initialPos = muzzle.position;
+        Vector3 initialVel = new Vector3(0f, 0f, currentWeaponData.muzzleVelocity);
+        Vector3 totalAcceleration = _gravityVector + windAcceleration;
+
+        Vector3[] pathPoints = trajectoryCalculator.CalculateBallisticPathPoints(initialPos, initialVel, totalAcceleration, physicsTimeStep, maxTime);
+        Vector3[] pathPointsGravOnly = trajectoryCalculator.CalculateBallisticPathPoints(initialPos, initialVel, _gravityVector, physicsTimeStep, maxTime);
 
         for (int i = 1; i < pathPoints.Length; i++)
         {
-            Debug.DrawLine(pathPoints[i - 1], pathPoints[i], Color.green);
+            Debug.DrawLine(pathPoints[i - 1], pathPoints[i], Color.red);
+            Debug.DrawLine(pathPointsGravOnly[i - 1], pathPointsGravOnly[i], Color.green);
+
         }
     }
 
